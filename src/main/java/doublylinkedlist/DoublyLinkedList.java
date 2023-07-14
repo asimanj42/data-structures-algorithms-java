@@ -90,4 +90,23 @@ public class DoublyLinkedList {
         }
         length++;
     }
+
+    public Node removeFirst() {
+        Node temp = head; //temp = 4, head = 4;
+
+        if (length == 0) {
+            return null;
+        }
+        if (length == 1) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.next; //head = 11
+            head.prev = null;
+            temp.next = null;
+        }
+        length--;
+        System.out.println("Silinen eded: " + temp.value);
+        return temp;
+    }
 }
