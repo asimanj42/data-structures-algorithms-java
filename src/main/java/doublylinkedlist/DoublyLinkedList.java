@@ -1,5 +1,7 @@
 package doublylinkedlist;
 
+import linkedlist.LinkedList;
+
 public class DoublyLinkedList {
     private Node head;
     private Node tail;
@@ -11,7 +13,6 @@ public class DoublyLinkedList {
         tail = newNode;
         length = 1;
     }
-
 
     class Node {
         int value;
@@ -109,4 +110,79 @@ public class DoublyLinkedList {
         System.out.println("Silinen eded: " + temp.value);
         return temp;
     }
+
+
+    public Node get(int index) {
+        Node temp = head;
+        if (index < 0 || index >= length) {
+            return null;
+        }
+        if (index < length / 2) { //Effektiv usul,beleki index'i tapmaga hem head,hem de tail terefden baslaya bilerik
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+        } else {
+            temp = tail;
+            for (int i = length - 1; i > index; i--) {
+                temp = temp.prev;
+            }
+        }
+        return temp;
+    }
+
+    public boolean set(int index, int value) {
+        Node temp = get(index);
+        if (index < 0 || index >= length) {
+            return false;
+        } else {
+            temp.value = value;
+            return true;
+        }
+    }
+
+    public void insert(int index, int value) {
+
+        Node newNode = new Node(value); //newNode = 4
+        Node before = get(index); //temp = 3
+        Node after = get(index + 1); //after = 23
+        if (index < 0 || index > length) {
+            return;
+        }
+        if (index == 0) {
+            prepend(value);
+            return;
+        }
+        if (index == length) {
+            append(value);
+            return;
+        }
+        before.next = newNode;
+        after.prev = newNode;
+        newNode.prev = before;
+        newNode.next = after;
+        length++;
+    }
+
+    public Node remove(int index) {
+        if (index < 0 || index >= length) {
+            return null;
+        }
+        if (index == 0) {
+            return removeFirst();
+        }
+        if (index == length - 1) {
+            return removeLast();
+        }
+        Node temp = get(index); // temp = 23
+        Node before = get(index - 1);
+        Node after = get(index + 1);
+        temp.next = null;
+        temp.prev = null;
+        before.next = after;
+        after.prev = before;
+        length--;
+        System.out.println("Silinen eded: " + temp.value);
+        return temp;
+    }
+
 }
