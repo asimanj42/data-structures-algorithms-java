@@ -60,17 +60,34 @@ public class DoublyLinkedList {
     }
 
     public Node removeLast() {
+        Node temp = tail; //temp = 4 , tail = 4
         if (length == 0) {
             return null;
+        }
+        if (length == 1) {
+            head = null;
+            tail = null;
         } else {
-            Node temp = tail; //temp = 4 , tail = 4
+
             tail = tail.prev; // tail = 7
             tail.next = null;
             temp.prev = null;
-            System.out.println("Silinen eded: " + temp.value);
-            return temp;
         }
-
+        length--;
+        System.out.println("Silinen eded: " + temp.value);
+        return temp;
     }
 
+    public void prepend(int value) {
+        Node newNode = new Node(value);
+        if (length == 0) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+        length++;
+    }
 }

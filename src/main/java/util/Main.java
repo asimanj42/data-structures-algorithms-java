@@ -10,7 +10,8 @@ public class Main {
          d.append(144);
         d.printList();
         System.out.println("-----------");
-        d.removeLast();
+        d.prepend(100);
+        d.prepend(182);
         d.printList();
     }
 }
